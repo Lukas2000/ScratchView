@@ -58,7 +58,7 @@ public class BitmapUtils {
             return 0f;
         }
 
-        ByteBuffer buffer = ByteBuffer.allocate(bitmap.getHeight() * bitmap.getRowBytes());
+        ByteBuffer buffer = ByteBuffer.allocateDirect(bitmap.getHeight() * bitmap.getRowBytes());
         bitmap.copyPixelsToBuffer(buffer);
 
         byte[] array = buffer.array();
