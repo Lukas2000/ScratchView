@@ -39,6 +39,10 @@ import android.widget.ImageView;
 
 import com.cooltechworks.utils.BitmapUtils;
 
+import static android.R.attr.left;
+import static android.R.attr.top;
+import static android.R.attr.width;
+
 
 /**
  * Created by Harish on 25/03/16.
@@ -400,7 +404,8 @@ public class ScratchImageView extends ImageView {
 
 
         Drawable drawable = getDrawable();
-        Rect bounds = drawable.getBounds();
+        if(drawable != null) {
+            Rect bounds = drawable.getBounds();
 
         int width = drawable.getIntrinsicWidth();
         int height = drawable.getIntrinsicHeight();
@@ -413,43 +418,48 @@ public class ScratchImageView extends ImageView {
             height = bounds.bottom - bounds.top;
         }
 
-        int left;
-        int top;
+            int left;
+            int top;
 
-        if(height > vheight) {
-            height = vheight;
-        }
-
-        if(width > vwidth) {
-            width = vwidth;
-        }
-
-
-        ScaleType scaleType = getScaleType();
-
-        switch (scaleType) {
-            case FIT_START:
-                left = paddingLeft;
-                top = centerY - height / 2;
-                break;
-            case FIT_END:
-                left = vwidth - paddingRight - width;
-                top = centerY - height / 2;
-                break;
-            case CENTER:
-                left = centerX - width / 2;
-                top = centerY - height / 2;
-                break;
-            default:
-                left = paddingLeft;
-                top = paddingTop;
-                width = vwidth;
+            if(height > vheight) {
                 height = vheight;
-                break;
+            }
 
+            if(width > vwidth) {
+                width = vwidth;
+            }
+
+
+            ScaleType scaleType = getScaleType();
+
+            switch (scaleType) {
+                case FIT_START:
+                    left = paddingLeft;
+                    top = centerY - height / 2;
+                    break;
+                case FIT_END:
+                    left = vwidth - paddingRight - width;
+                    top = centerY - height / 2;
+                    break;
+                case CENTER:
+                    left = centerX - width / 2;
+                    top = centerY - height / 2;
+                    break;
+                default:
+                    left = paddingLeft;
+                    top = paddingTop;
+                    width = vwidth;
+                    height = vheight;
+                    break;
+
+            }
+
+
+            return new int[] {left, top, left + width, top + height};
+        }else{
+            return new int[] {left, top, left, top};
         }
 
-        return new int[] {left, top, left + width, top + height};
     }
 
 
