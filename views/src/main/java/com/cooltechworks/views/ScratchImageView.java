@@ -179,19 +179,23 @@ public class ScratchImageView extends ImageView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mScratchBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        mCanvas = new Canvas(mScratchBitmap);
+        try {
+            mScratchBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+            mCanvas = new Canvas(mScratchBitmap);
 
-        Rect rect = new Rect(0, 0, mScratchBitmap.getWidth(), mScratchBitmap.getHeight());
-        mDrawable.setBounds(rect);
+            Rect rect = new Rect(0, 0, mScratchBitmap.getWidth(), mScratchBitmap.getHeight());
+            mDrawable.setBounds(rect);
 
-        int startGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_start_gradient);
-        int endGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_end_gradient);
+            int startGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_start_gradient);
+            int endGradientColor = ContextCompat.getColor(getContext(), R.color.scratch_end_gradient);
 
-        mGradientBgPaint.setShader(new LinearGradient(0, 0, 0, getHeight(), startGradientColor, endGradientColor, Shader.TileMode.MIRROR));
+            mGradientBgPaint.setShader(new LinearGradient(0, 0, 0, getHeight(), startGradientColor, endGradientColor, Shader.TileMode.MIRROR));
 
-        mCanvas.drawRect(rect, mGradientBgPaint);
-        mDrawable.draw(mCanvas);
+            mCanvas.drawRect(rect, mGradientBgPaint);
+            mDrawable.draw(mCanvas);
+        }catch(Exception e){
+            //ignored
+        }
     }
 
     @Override
