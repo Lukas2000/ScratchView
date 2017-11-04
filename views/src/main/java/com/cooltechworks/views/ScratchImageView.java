@@ -362,6 +362,21 @@ public class ScratchImageView extends ImageView {
                         int width = params[2];
                         int height = params[3];
 
+                        if(top<0){
+                            top = 1;
+                        }
+                        if(left<0){
+                            left = 1;
+                        }
+
+                        if(width<0){
+                            width = 1;
+                        }
+
+                        if(height<0){
+                            height = 1;
+                        }
+
                         Bitmap croppedBitmap = Bitmap.createBitmap(mScratchBitmap, left, top, width, height);
 
                         return BitmapUtils.getTransparentPixelPercent(croppedBitmap);
